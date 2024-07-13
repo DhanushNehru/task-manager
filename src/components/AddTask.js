@@ -44,7 +44,7 @@ const AddTask = () => {
         />
       </div>
       <div style={{ display: "flex", gap: "1rem" }}>
-        <label>Descrition</label>
+        <label>Description</label>
         <textarea
           value={task.description}
           style={{ width: "14rem" }}

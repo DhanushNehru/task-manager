@@ -75,11 +75,11 @@ const Task = ({ task }) => {
           onKeyDown={handleEditTask}
         />
 
-        <button onClick={handleOpenInput} style={styles.editBtn}>
-          <img src={editIcn} style={styles.editImg} />
+        <button onClick={handleOpenInput} style={Object.assign(styles.editBtn,styles.editImg)}>
+          <img src={editIcn} />
         </button>
-        <button onClick={handleRemoveTask} style={styles.editBtn}>
-          <img src={removeIcn} style={styles.editImg} />
+        <button onClick={handleRemoveTask}  style={Object.assign(styles.editBtn,styles.editImg)}>
+          <img src={removeIcn}/>
         </button>
       </div>
       <p style={styles.description}>{task.description}</p>
