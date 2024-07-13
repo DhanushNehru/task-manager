@@ -1,12 +1,15 @@
-import React from 'react';
-import AddTask from './components/AddTask';
-import TaskList from './components/TaskList';
+import React from "react";
+import AddTask from "./components/AddTask";
+import TaskList from "./components/TaskList";
 
 const App = () => {
   return (
-    <div>
-      <h1>Task Manager</h1>
-      <AddTask />
+    <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <div>
+        <h1>Task Manager</h1>
+        <AddTask />
+      </div>
+
       <TaskList />
     </div>
   );
