@@ -21,6 +21,20 @@ git clone https://github.com/your-username/task-manager.git
 cd task-manager
 ```
 
+2. Install the dependencies:
+
+```bash
+npm install
+# yarn install
+```
+
+3. Run the development server:
+
+```bash
+npm run start
+# yarn start
+```
+
 ## Gitpod
 
 In the cloud-free development environment where you can directly start coding.
