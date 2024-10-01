@@ -13,13 +13,13 @@ Thank you for your contribution to our project! We greatly appreciate your effor
 ### Type of Changes
 Please check the type of change your PR introduces:
 
--[Feature Addition](#feature-addition)
--[Bugfix](#bugfix)
--[Documentation Update](#documentation-update)
--[Refactoring](#refactoring)
--[Hotfix](#hotfix)
--[UI/UX Improvement](#uiux-improvement)
--[Other(please describe)](#other)
+- [Feature Addition](#feature-addition)
+- [Bugfix](#bugfix)
+- [Documentation Update](#documentation-update)
+- [Refactoring](#refactoring)
+- [Hotfix](#hotfix)
+- [UI/UX Improvement](#uiux-improvement)
+- [Other(please describe)](#other)
 
 
 ### Feature Addition
