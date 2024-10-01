@@ -76,10 +76,10 @@ Please check the type of change your PR introduces:
     -Any edge cases considered
 
 ## Related Issues
-# If this PR addresses an existing issue, please link to it here:
+### If this PR addresses an existing issue, please link to it here:
     -**Closes** #[issue number]
     -**Screenshots** (if applicable)
-# If your changes include visual updates, please add screenshots to help explain your changes.
+### If your changes include visual updates, please add screenshots to help explain your changes.
 
 ## Checklist
 -Before submitting your pull request, please review and check off the following items:
@@ -94,11 +94,11 @@ Please check the type of change your PR introduces:
      ✅ I have checked my code and corrected any misspellings
      ✅ I have updated the README.md (if applicable)
 
-### Additional Notes
- -Add any other context about the pull request here. This might include:
-    -Challenges you faced and how you overcame them
-    -Areas you'd like reviewers to focus on
-    -Future improvements or follow-up work related to this PR
+## Additional Notes
+ - Add any other context about the pull request here. This might include:
+    - Challenges you faced and how you overcame them
+    - Areas you'd like reviewers to focus on
+    - Future improvements or follow-up work related to this PR
 
 ## Thank You
 
