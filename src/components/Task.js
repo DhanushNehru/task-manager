@@ -41,30 +41,35 @@ const Task = ({ task }) => {
       borderRadius: "10px",
     },
     input: {
-      border: "none",
-      backgroundColor: "white",
+      backgroundColor: "rgba(249, 249, 249, 0.7)",
+      padding : "5px",
       fontSize: "25px",
+      border: "1px solid black",
+      borderRadius: "4px",
+      fontFamily: "Ariel",
+      
     },
     description: {
       backgroundColor: "#eee",
       padding: "1rem",
+      border : "1px solid green",
       borderRadius: "10px",
       fontFamily: "Ariel",
       fontSize: "25px",
       color: "#1c0738",
       display: isExpend ? "block" : "none",
     },
-    isexpend: {
-      width: "5rem",
+    isExpend: {
+      width: "8rem",
       fontSize: "30px",
       cursor: "pointer",
-    },
+    }
   };
 
   return (
     <>
       <div style={styles.tskname}>
-        <span style={styles.isexpend} onClick={() => setIsExpend(!isExpend)}>
+        <span style={styles.isExpend} onClick={() => setIsExpend(!isExpend)}>
           {isExpend ? <span>&#8681;</span> : <span>&#8680;</span>}
         </span>
         <input
@@ -75,11 +80,11 @@ const Task = ({ task }) => {
           onKeyDown={handleEditTask}
         />
 
-        <button onClick={handleOpenInput} style={Object.assign(styles.editBtn,styles.editImg)}>
-          <img src={editIcn} />
+        <button onClick={handleOpenInput} style={Object.assign(styles.editBtn)}>
+          <img src={editIcn} alt="" style={Object.assign(styles.editImg)} />
         </button>
-        <button onClick={handleRemoveTask}  style={Object.assign(styles.editBtn,styles.editImg)}>
-          <img src={removeIcn}/>
+        <button onClick={handleRemoveTask}  style={Object.assign(styles.editBtn)}>
+          <img src={removeIcn} alt="" style={Object.assign(styles.editImg)}/>
         </button>
       </div>
       <p style={styles.description}>{task.description}</p>
