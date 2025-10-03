@@ -1,7 +1,6 @@
 
 .app-container {
   min-height: 100vh; 
-  display: flex;
   justify-content: space-around; 
   background: linear-gradient(270deg, #508196, #4CAF50, #508196);
   background-size: 400% 400%;
