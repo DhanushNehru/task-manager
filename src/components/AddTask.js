@@ -15,6 +15,7 @@ const AddTask = () => {
           id: Date.now(),
           name: task.name,
           description: task.description,
+          completed: false, // default status
         })
       );
       setTask(initTask);
@@ -55,7 +56,7 @@ const AddTask = () => {
             fontFamily: "'Roboto', sans-serif",
             fontSize: "1rem",
             outline: "none",
-            transition: "border 0.3s, box-shadow 0.3s",
+            transition: "border 0.3s",
           }}
           onFocus={(e) => (e.target.style.border = "1.5px solid #4CAF50")}
           onBlur={(e) => (e.target.style.border = "1.5px solid #ccc")}
@@ -81,7 +82,7 @@ const AddTask = () => {
             fontSize: "1rem",
             minHeight: "80px",
             outline: "none",
-            transition: "border 0.3s, box-shadow 0.3s",
+            transition: "border 0.3s",
           }}
           onFocus={(e) => (e.target.style.border = "1.5px solid #4CAF50")}
           onBlur={(e) => (e.target.style.border = "1.5px solid #ccc")}
@@ -98,7 +99,7 @@ const AddTask = () => {
           fontWeight: "600",
           fontSize: "1rem",
           cursor: "pointer",
-          transition: "transform 0.2s ease, box-shadow 0.2s ease",
+          transition: "transform 0.2s ease",
         }}
         onClick={handleAddTask}
         onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}

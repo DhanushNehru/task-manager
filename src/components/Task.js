@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { removeTask, editTask } from "../redux/actions";
+import { removeTask, editTask, toggleTask } from "../redux/actions";
 import editIcn from "../Images/edit.png";
 import removeIcn from "../Images/remove.png";
 
@@ -12,9 +12,10 @@ const Task = ({ task }) => {
   const handleRemoveTask = () => dispatch(removeTask(task.id));
   const handleOpenInput = () => setIsDisabled(false);
   const handleEditTask = (e) => {
-    dispatch(editTask(task.id, e.target.value));
+    dispatch(editTask({ taskId: task.id, name: e.target.value }));
     if (e.keyCode === 13) setIsDisabled(true);
   };
+  const handleToggleCompleted = () => dispatch(toggleTask(task.id));
 
   return (
     <div
@@ -34,17 +35,12 @@ const Task = ({ task }) => {
           flexWrap: "wrap",
         }}
       >
-        <span
-          style={{
-            width: "2rem",
-            fontSize: "1.2rem",
-            cursor: "pointer",
-            transition: "transform 0.2s",
-          }}
-          onClick={() => setIsExpend(!isExpend)}
-        >
-          {isExpend ? "\u25BC" : "\u25B6"}
-        </span>
+        {/* Toggle Completed */}
+        <input
+          type="checkbox"
+          checked={task.completed || false}
+          onChange={handleToggleCompleted}
+        />
 
         <input
           type="text"
@@ -58,10 +54,9 @@ const Task = ({ task }) => {
             border: "1px solid #ccc",
             fontSize: "1rem",
             outline: "none",
-            transition: "border 0.3s, box-shadow 0.3s",
+            textDecoration: task.completed ? "line-through" : "none",
+            color: task.completed ? "#777" : "#000",
           }}
-          onFocus={(e) => (e.target.style.border = "1.5px solid #4CAF50")}
-          onBlur={(e) => (e.target.style.border = "1px solid #ccc")}
         />
 
         <button
@@ -95,23 +90,37 @@ const Task = ({ task }) => {
         >
           <img src={removeIcn} alt="remove" style={{ width: "1rem" }} />
         </button>
+
+        {/* Expand/Collapse */}
+        <span
+          style={{
+            width: "2rem",
+            fontSize: "1.2rem",
+            cursor: "pointer",
+            transition: "transform 0.2s",
+          }}
+          onClick={() => setIsExpend(!isExpend)}
+        >
+          {isExpend ? "\u25BC" : "\u25B6"}
+        </span>
       </div>
 
-      <p
-        style={{
-          marginTop: "0.5rem",
-          padding: "0.8rem",
-          borderRadius: "8px",
-          backgroundColor: "#f9f9f9",
-          border: "1px solid #ddd",
-          fontSize: "0.95rem",
-          color: "#333",
-          display: isExpend ? "block" : "none",
-          transition: "all 0.3s",
-        }}
-      >
-        {task.description}
-      </p>
+      {isExpend && (
+        <p
+          style={{
+            marginTop: "0.5rem",
+            padding: "0.8rem",
+            borderRadius: "8px",
+            backgroundColor: "#f9f9f9",
+            border: "1px solid #ddd",
+            fontSize: "0.95rem",
+            color: "#333",
+            transition: "all 0.3s",
+          }}
+        >
+          {task.description}
+        </p>
+      )}
     </div>
   );
 };
