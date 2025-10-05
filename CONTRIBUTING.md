@@ -1,147 +1,121 @@
-Thank you for considering a contribution to Task Manager—an open-source React+Redux app for task management! 📝 Your improvements, bug fixes, and new features help make this project better for everyone.
-##How to Contribute
-1. Getting Started
+# Contributing to Task Manager
 
-    Fork the repository to your own GitHub account.
+Thank you for considering a contribution to **Task Manager**—an open-source React+Redux app for task management! 📝 Your improvements, bug fixes, and new features help make this project better for everyone.
 
-    Clone your fork locally:
+---
 
-    bash
+## How to Contribute
+
+### 1. Getting Started
+
+1. **Fork** the repository to your own GitHub account.
+2. **Clone** your fork locally:
+
+    ```bash
     git clone https://github.com/your-username/task-manager.git
     cd task-manager
+    ```
 
-2. Development Setup
+### 2. Development Setup
 
-    Ensure you have Node.js and npm (or yarn) installed.
+1. Ensure you have **Node.js** and **npm** (or **yarn**) installed.
+2. Install dependencies:
 
-    Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-bash
-npm install
-#### or
-yarn install
+3. Start the development server:
 
-Start the development server:
-
-    bash
+    ```bash
     npm start
     # or
     yarn start
+    ```
 
-    You should see the app running at http://localhost:3000.
+    You should see the app running at [http://localhost:3000](http://localhost:3000).
 
-Types of Contributions
+---
 
-You can:
+## Features of Task Manager
 
-    Add new features (e.g., sub-tasks, reminders, user accounts)
+- **Add, Edit, and Delete Tasks**: Manage your tasks efficiently.
+- **Task List**: View all tasks in a clean and organized list.
+- **Redux State Management**: Robust state handling for seamless performance.
+- **Responsive Design**: Works across devices of all sizes.
+- **Customizable**: Easily extend functionality with modular components.
 
-    Fix bugs (see Issues page)
+---
 
-    Improve UI/UX, accessibility, or performance
+## Creating Your Pull Request (PR)
 
-    Update documentation (README, FAQ, guides)
+### 1. Branching
 
-    Refactor existing code for clarity or optimization
+Create a new branch for your work:
 
-Creating Your Pull Request (PR)
-1. Branching
+```bash
+git checkout -b feature/short-description
+```
 
-    Create a new branch for your work:
+Replace `feature/short-description` with one describing the change.
 
-    bash
-    git checkout -b feature/short-description
+### 2. Making Changes
 
-    Replace feature/short-description with one describing the change.
+- Keep your changes focused—one feature or fix per PR.
+- Add or update documentation as needed.
+- If your change impacts the UI, take a screenshot.
+- Run tests and make sure everything passes.
 
-2. Making Changes
+### 3. Committing
 
-    Keep your changes focused—one feature or fix per PR.
+Use clear, conventional commit messages:
 
-    Add or update documentation as needed.
-
-    If your change impacts the UI, take a screenshot and tag @DevKan009 in the PR for review.
-
-    Run tests and make sure everything passes.
-
-3. Committing
-
-    Use clear, conventional commit messages:
-
-text
+```text
 feat: add drag-and-drop for tasks
 fix: resolve sidebar collapse bug
 docs: update contributing guide
+```
 
 Push to your fork:
 
-    bash
-    git push origin feature/short-description
+```bash
+git push origin feature/short-description
+```
 
-Pull Request Format (Template)
+### 4. Pull Request Format
 
-# When opening a PR, copy and fill the template below:
+When opening a PR, use the [PR Template](./pull_request_template.md) to ensure all necessary details are included.
 
-text
-## Description
+---
 
-Briefly describe your change and what it addresses.
+## Code Style & Standards
 
-## Related Issue
+- Use **ESLint** for code quality (`npm run lint`).
+- Keep code modular and readable.
+- Prefer functional components and hooks for React logic.
+- For state management, use Redux patterns consistently.
 
-Closes #<issue-number> (if applicable)
+---
 
-## Type of Change
-- [ ] New feature
-- [ ] Bug fix
-- [ ] Documentation
-- [ ] Refactor
-- [ ] Other (add details)
+## Issues and Feedback
 
-## How Has This Been Tested?
+- Browse or open issues on the [Issues](https://github.com/DhanushNehru/task-manager/issues) page.
+- If reporting a bug, include reproduction steps, screenshots (minimal), and environment details.
 
-Explain manual or automated tests performed.  
-If UI changes, attach a screenshot. 
+---
 
-## Screenshots 📸
+## Community Expectations
 
-<attach here if applicable, keep minimal and relevant>
+- Be respectful and constructive.
+- Follow the [Code of Conduct](./Code%20of%20Conduct.md).
+- All conversations and reviews strive for clarity and friendly collaboration.
 
-## Checklist
-- [ ] My code follows project coding style
-- [ ] No new errors/warnings
-- [ ] Added/updated documentation
-- [ ] Screenshots for major UI changes (tagged @DevKan009)
-- [ ] All acceptance criteria from linked issue met
+---
 
-## Additional Notes
+## License
 
-(Optional) Any commentary for reviewers.
+This project is licensed under the [MIT License](./LICENSE).
 
-Code Style & Standards
-
-    Use ESLint for code quality (npm run lint).
-
-    Keep code modular and readable.
-
-    Prefer functional components and hooks for React logic.
-
-    For state management, use Redux patterns consistently.
-
-Issues and Feedback
-
-    Browse or open issues at Issues.
-
-    If reporting a bug: include reproduction steps, screenshots (minimal), and environment details.
-
-Community Expectations
-
-    Be respectful and constructive.
-
-    Follow the Code of Conduct if available.
-
-    All conversations and reviews strive for clarity and friendly collaboration.
-
-License
-
-This project is licensed under the MIT License.
+---
