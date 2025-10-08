@@ -58,7 +58,7 @@ Representation includes using official project communication channels or acting 
 
 ## Enforcement
 
-Instances of unacceptable behavior can be reported anonymously through [this form](https://goo.gl/forms/chVYUnA4bP70WGsL2) or Directly to the project leadership. All complaints will be:
+Instances of unacceptable behavior can be reported anonymously through [this form](https://goo.gl/forms/chVYUnA4bP70WGsL2) or directly to the project leadership. All complaints will be:
 - Reviewed and investigated
 - Addressed with necessary and appropriate responses
 - Kept confidential to protect the reporter
