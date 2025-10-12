@@ -1,111 +1,121 @@
 # Contributing to Task Manager
 
-First off, thank you for considering contributing to the Task Manager project! 🎉 Your contributions are greatly appreciated and help make this project better for everyone.
+Thank you for considering a contribution to **Task Manager**—an open-source React+Redux app for task management! 📝 Your improvements, bug fixes, and new features help make this project better for everyone.
 
-## Table of Contents
+---
 
-- [How Can I Contribute?](#how-can-i-contribute)
-  - [Reporting Bugs](#reporting-bugs)
-  - [Suggesting Enhancements](#suggesting-enhancements)
-  - [Submitting Pull Requests](#submitting-pull-requests)
-    - [Steps to Contribute](#steps-to-contribute)
-- [Code Style Guidelines](#code-style-guidelines)
-- [Reviewing Changes](#reviewing-changes)
-- [Code of Conduct](#code-of-conduct)
-- [Thank You](#thank-you)
+## How to Contribute
 
-## How Can I Contribute?
+### 1. Getting Started
 
-### Reporting Bugs
-
-If you find a bug in the application, please help us fix it by following these steps:
-
-1. **Check for Existing Issues**: Look through [existing issues](https://github.com/DhanushNehru/task-manager/issues) to see if the bug has already been reported.
-2. **Open a New Issue**: If the bug is not listed, open a new issue with the following details:
-   - **Title**: A clear and descriptive title.
-   - **Description**: A detailed description of the bug.
-   - **Steps to Reproduce**: Step-by-step instructions to reproduce the issue.
-   - **Expected Behavior**: What you expected to happen.
-   - **Actual Behavior**: What actually happened.
-   - **Screenshots or Logs**: Any relevant screenshots or log files.
-
-### Suggesting Enhancements
-
-We welcome your ideas to improve the Task Manager! To suggest enhancements:
-
-1. **Check Existing Suggestions**: Browse through [open issues](https://github.com/DhanushNehru/task-manager/issues) to see if your idea has already been proposed.
-2. **Open a New Issue**: If not, create a new issue with:
-   - **Title**: A clear and descriptive title for the enhancement.
-   - **Description**: A detailed explanation of the enhancement and its benefits.
-   - **Possible Implementation**: Any ideas on how to implement the enhancement (optional).
-
-### Submitting Pull Requests
-
-Pull requests are the best way to contribute to the Task Manager. Follow these steps to submit a PR:
-
-#### Steps to Contribute
-
-1. **Fork the Repository**: Click the "Fork" button at the top right of the repository page to create your own copy.
-
-2. **Clone Your Fork**:
+1. **Fork** the repository to your own GitHub account.
+2. **Clone** your fork locally:
 
     ```bash
-    git clone https://github.com/DhanushNehru/task-manager.git
+    git clone https://github.com/your-username/task-manager.git
     cd task-manager
     ```
 
-3. **Create a New Branch** for your feature or fix:
+### 2. Development Setup
+
+1. Ensure you have **Node.js** and **npm** (or **yarn**) installed.
+2. Install dependencies:
 
     ```bash
-    git checkout -b feature-or-fix-name
+    npm install
+    # or
+    yarn install
     ```
 
-4. **Make Your Changes**: Implement your feature or fix. Ensure your code follows the existing coding style.
-
-5. **Commit Your Changes**:
+3. Start the development server:
 
     ```bash
-    git commit -m "A brief description of the feature or fix"
+    npm start
+    # or
+    yarn start
     ```
 
-6. **Push to Your Fork**:
+    You should see the app running at [http://localhost:3000](http://localhost:3000).
 
-    ```bash
-    git push origin feature-or-fix-name
-    ```
+---
 
-7. **Create a Pull Request**:
-   - Navigate to your fork on GitHub.
-   - Click the "Compare & pull request" button.
-   - Provide a clear description of your changes.
-   - Reference any related issues by using keywords like `Closes #issue-number`.
+## Features of Task Manager
 
-## Code Style Guidelines
+- **Add, Edit, and Delete Tasks**: Manage your tasks efficiently.
+- **Task List**: View all tasks in a clean and organized list.
+- **Redux State Management**: Robust state handling for seamless performance.
+- **Responsive Design**: Works across devices of all sizes.
+- **Customizable**: Easily extend functionality with modular components.
 
-Maintaining a consistent code style helps keep the codebase readable and maintainable. Please adhere to the following guidelines:
+---
 
-- **Indentation**: Use 2 spaces for JavaScript and JSX files.
-- **Naming Conventions**:
-  - Use `camelCase` for variables and functions.
-  - Use `PascalCase` for React components.
-- **Commit Messages**:
-  - Write clear and concise commit messages.
-  - Use the imperative mood (e.g., "Add new feature" instead of "Added new feature").
-- **Code Formatting**: Ensure your code is properly formatted. Consider using tools like [Prettier](https://prettier.io/).
-- **Linting**: Follow the project's linting rules to catch potential errors and enforce coding standards.
+## Creating Your Pull Request (PR)
 
-## Reviewing Changes
+### 1. Branching
 
-After you submit a pull request, the maintainers will review your code. Here's what to expect:
+Create a new branch for your work:
 
-- **Review Process**: Your PR will be reviewed for code quality, adherence to guidelines, and functionality.
-- **Feedback**: If changes are needed, we will leave comments on your PR. Address the feedback by making additional commits to your branch.
-- **Approval and Merge**: Once your PR meets all requirements and passes all checks, it will be approved and merged.
+```bash
+git checkout -b feature/short-description
+```
 
+Replace `feature/short-description` with one describing the change.
 
+### 2. Making Changes
 
-## Thank You
+- Keep your changes focused—one feature or fix per PR.
+- Add or update documentation as needed.
+- If your change impacts the UI, take a screenshot.
+- Run tests and make sure everything passes.
 
-Thank you for taking the time to contribute to the Task Manager! Your efforts help make this project better and more useful for everyone. If you have any questions or need assistance, feel free to reach out by opening an issue or contacting the maintainers.
+### 3. Committing
 
-Happy coding! 🚀
+Use clear, conventional commit messages:
+
+```text
+feat: add drag-and-drop for tasks
+fix: resolve sidebar collapse bug
+docs: update contributing guide
+```
+
+Push to your fork:
+
+```bash
+git push origin feature/short-description
+```
+
+### 4. Pull Request Format
+
+When opening a PR, use the [PR Template](./pull_request_template.md) to ensure all necessary details are included.
+
+---
+
+## Code Style & Standards
+
+- Use **ESLint** for code quality (`npm run lint`).
+- Keep code modular and readable.
+- Prefer functional components and hooks for React logic.
+- For state management, use Redux patterns consistently.
+
+---
+
+## Issues and Feedback
+
+- Browse or open issues on the [Issues](https://github.com/DhanushNehru/task-manager/issues) page.
+- If reporting a bug, include reproduction steps, screenshots (minimal), and environment details.
+
+---
+
+## Community Expectations
+
+- Be respectful and constructive.
+- Follow the [Code of Conduct](./Code%20of%20Conduct.md).
+- All conversations and reviews strive for clarity and friendly collaboration.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+---
