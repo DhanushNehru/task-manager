@@ -19,7 +19,7 @@ const taskReducer = (state = initialState, action) => {
         ...state,
         tasks: state.tasks.map((task) => {
           console.log(task);
-          return task.id == action.payload.taskId
+          return task.id === action.payload.taskId
             ? { ...task, name: action.payload.name }
             : // (task.name = action.payload.name)
               task;
