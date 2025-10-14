@@ -26,7 +26,9 @@ const taskReducer = (state = initialState, action) => {
 
     case "TOGGLE_TASK":
       updatedTasks = state.tasks.map((task) =>
-        task.id === action.payload ? { ...task, completed: !task.completed } : task
+        task.id === action.payload
+          ? { ...task, completed: !task.completed }
+          : task
       );
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
       return { ...state, tasks: updatedTasks };
