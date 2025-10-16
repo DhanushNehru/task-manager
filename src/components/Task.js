@@ -1,125 +1,194 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { removeTask, editTask, toggleTask } from "../redux/actions";
-import editIcn from "../Images/edit.png";
-import removeIcn from "../Images/remove.png";
+import { removeTask, toggleTask, editTask } from "../redux/actions";
 
 const Task = ({ task }) => {
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [isExpend, setIsExpend] = useState(false);
   const dispatch = useDispatch();
 
-  const handleRemoveTask = () => dispatch(removeTask(task.id));
-  const handleOpenInput = () => setIsDisabled(false);
-  const handleEditTask = (e) => {
-    dispatch(editTask({ taskId: task.id, name: e.target.value }));
-    if (e.keyCode === 13) setIsDisabled(true);
+  // Hooks at the top
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTask, setEditedTask] = useState({
+    name: task?.name || "",
+    description: task?.description || "",
+    dueDate: task?.dueDate || "",
+  });
+
+  // Save edits
+  const handleSave = () => {
+    if (editedTask.name.trim()) {
+      dispatch(editTask(task.id, editedTask));
+      setIsEditing(false);
+    }
   };
-  const handleToggleCompleted = () => dispatch(toggleTask(task.id));
+
+  // Reminder popup
+  const handleReminder = () => {
+    if (!task.dueDate) {
+      alert("No due date set for this task!");
+      return;
+    }
+
+    const due = new Date(task.dueDate);
+    if (isNaN(due)) {
+      alert("Invalid due date!");
+      return;
+    }
+
+    const now = new Date();
+    const diffMs = due - now;
+
+    if (diffMs <= 0) {
+      alert(`⚠️ Task "${task.name}" is already past due!`);
+      return;
+    }
+
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
+
+    alert(`⏰ "${task.name}" is due in ${days}d ${hours}h ${minutes}m`);
+  };
 
   return (
     <div
       style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+        backgroundColor: "#fff",
+        borderRadius: "10px",
         padding: "1rem",
         marginBottom: "1rem",
-        borderRadius: "12px",
-        boxShadow: "0 3px 10px rgba(0,0,0,0.08)",
-        backgroundColor: "#fff",
+        boxShadow: "0 3px 10px rgba(0,0,0,0.1)",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.75rem",
-          flexWrap: "wrap",
-        }}
-      >
-        {/* Toggle Completed */}
+      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+        {/* Completed Checkbox */}
         <input
           type="checkbox"
-          checked={task.completed || false}
-          onChange={handleToggleCompleted}
+          checked={task.completed}
+          onChange={() => dispatch(toggleTask(task.id))}
         />
 
-        <input
-          type="text"
-          disabled={isDisabled}
-          defaultValue={task.name}
-          onKeyDown={handleEditTask}
+        {/* Task Name */}
+        {isEditing ? (
+          <input
+            value={editedTask.name}
+            onChange={(e) =>
+              setEditedTask({ ...editedTask, name: e.target.value })
+            }
+            style={{
+              flex: 1,
+              padding: "0.4rem",
+              borderRadius: "6px",
+              border: "1px solid #ccc",
+            }}
+          />
+        ) : (
+          <h3
+            style={{
+              flex: 1,
+              textDecoration: task.completed ? "line-through" : "none",
+              margin: 0,
+            }}
+          >
+            {task.name}
+          </h3>
+        )}
+
+        {/* Reminder Bell */}
+        <button
+          onClick={handleReminder}
           style={{
-            flex: "1",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "1.2rem",
+          }}
+        >
+          🔔
+        </button>
+
+        {/* Edit / Save */}
+        {isEditing ? (
+          <button
+            onClick={handleSave}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "1.2rem",
+              color: "green",
+            }}
+          >
+            ✅
+          </button>
+        ) : (
+          <button
+            onClick={() => setIsEditing(true)}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "1.2rem",
+            }}
+          >
+            ✏️
+          </button>
+        )}
+
+        {/* Delete */}
+        <button
+          onClick={() => dispatch(removeTask(task.id))}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "1.2rem",
+            color: "red",
+          }}
+        >
+          ❌
+        </button>
+      </div>
+
+      {/* Description */}
+      {isEditing ? (
+        <textarea
+          value={editedTask.description}
+          onChange={(e) =>
+            setEditedTask({ ...editedTask, description: e.target.value })
+          }
+          style={{
             padding: "0.5rem",
             borderRadius: "6px",
             border: "1px solid #ccc",
-            fontSize: "1rem",
-            outline: "none",
-            textDecoration: task.completed ? "line-through" : "none",
-            color: task.completed ? "#777" : "#000",
           }}
         />
+      ) : (
+        <p style={{ margin: 0, color: "#555" }}>{task.description}</p>
+      )}
 
-        <button
-          onClick={handleOpenInput}
+      {/* Due Date */}
+      {isEditing ? (
+        <input
+          type="date"
+          value={editedTask.dueDate}
+          onChange={(e) =>
+            setEditedTask({ ...editedTask, dueDate: e.target.value })
+          }
           style={{
-            border: "none",
-            borderRadius: "50%",
             padding: "0.4rem",
-            cursor: "pointer",
-            backgroundColor: "#f0f0f0",
-            transition: "transform 0.2s",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-        >
-          <img src={editIcn} alt="edit" style={{ width: "1rem" }} />
-        </button>
-
-        <button
-          onClick={handleRemoveTask}
-          style={{
-            border: "none",
-            borderRadius: "50%",
-            padding: "0.4rem",
-            cursor: "pointer",
-            backgroundColor: "#f0f0f0",
-            transition: "transform 0.2s",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-        >
-          <img src={removeIcn} alt="remove" style={{ width: "1rem" }} />
-        </button>
-
-        {/* Expand/Collapse */}
-        <span
-          style={{
-            width: "2rem",
-            fontSize: "1.2rem",
-            cursor: "pointer",
-            transition: "transform 0.2s",
-          }}
-          onClick={() => setIsExpend(!isExpend)}
-        >
-          {isExpend ? "\u25BC" : "\u25B6"}
-        </span>
-      </div>
-
-      {isExpend && (
-        <p
-          style={{
-            marginTop: "0.5rem",
-            padding: "0.8rem",
-            borderRadius: "8px",
-            backgroundColor: "#f9f9f9",
-            border: "1px solid #ddd",
-            fontSize: "0.95rem",
-            color: "#333",
-            transition: "all 0.3s",
-          }}
-        >
-          {task.description}
-        </p>
+        />
+      ) : (
+        task.dueDate && (
+          <p style={{ margin: 0, color: "#999", fontSize: "0.9rem" }}>
+            Due: {task.dueDate}
+          </p>
+        )
       )}
     </div>
   );
