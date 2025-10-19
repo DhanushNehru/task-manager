@@ -1,41 +1,52 @@
+import {
+  ADD_TASK,
+  REMOVE_TASK,
+  EDIT_TASK,
+  TOGGLE_TASK,
+  LOAD_TASKS,
+  FILTER_TASKS,
+} from "./actions";
+
 const initialState = {
-  tasks: JSON.parse(localStorage.getItem("tasks")) || [],
+  tasks: [],
+  filter: "all",
 };
 
-const taskReducer = (state = initialState, action) => {
-  let updatedTasks;
+export const taskReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TASK":
-      updatedTasks = [...state.tasks, { ...action.payload, completed: false }];
+    case LOAD_TASKS:
+      return { ...state, tasks: action.payload };
+
+    case ADD_TASK:
+      const updatedTasks = [...state.tasks, action.payload];
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
       return { ...state, tasks: updatedTasks };
 
-    case "REMOVE_TASK":
-      updatedTasks = state.tasks.filter((task) => task.id !== action.payload);
-      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-      return { ...state, tasks: updatedTasks };
+    case REMOVE_TASK:
+      const filtered = state.tasks.filter((task) => task.id !== action.payload);
+      localStorage.setItem("tasks", JSON.stringify(filtered));
+      return { ...state, tasks: filtered };
 
-    case "EDIT_TASK":
-      updatedTasks = state.tasks.map((task) =>
-        task.id === action.payload.taskId
-          ? { ...task, name: action.payload.name }
-          : task
+    case TOGGLE_TASK:
+      const toggled = state.tasks.map((task) =>
+        task.id === action.payload ? { ...task, completed: !task.completed } : task
       );
-      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-      return { ...state, tasks: updatedTasks };
+      localStorage.setItem("tasks", JSON.stringify(toggled));
+      return { ...state, tasks: toggled };
 
-    case "TOGGLE_TASK":
-      updatedTasks = state.tasks.map((task) =>
-        task.id === action.payload
-          ? { ...task, completed: !task.completed }
-          : task
-      );
-      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-      return { ...state, tasks: updatedTasks };
+case EDIT_TASK:
+  const edited = state.tasks.map((task) =>
+    task.id === action.payload.taskId
+      ? { ...task, ...action.payload.updatedTask } // merge all updated fields
+      : task
+  );
+  localStorage.setItem("tasks", JSON.stringify(edited));
+  return { ...state, tasks: edited };
+
+    case FILTER_TASKS:
+      return { ...state, filter: action.payload };
 
     default:
       return state;
   }
 };
-
-export default taskReducer;
