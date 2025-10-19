@@ -53,7 +53,7 @@ export default function App() {
       let changed = false;
       const updated = tasks.map((t) => {
         if (!t.dueDate || t.completed) return t;
-        // treat dueDate as day: set time to end of day for due date comparision
+        // treat dueDate as day: set time to end of day for due date comparison
         const due = new Date(t.dueDate + "T23:59:59");
         const diffHours = (due - now) / (1000 * 60 * 60);
 
