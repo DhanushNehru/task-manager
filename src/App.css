@@ -6,5 +6,9 @@
 }
 button, input, select, textarea {
   border: transparent;
-  outline: none;
+}
+
+button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid #1976d2; /* visible blue outline for accessibility */
+  outline-offset: 2px;
 }
