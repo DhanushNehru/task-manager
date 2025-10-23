@@ -1,14 +1,10 @@
-
-.app-container {
-  min-height: 100vh; 
-  justify-content: space-around; 
-  background: linear-gradient(270deg, #508196, #4CAF50, #508196);
-  background-size: 400% 400%;
-  animation: gradientAnimation 15s ease infinite;
+/* reset css */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-@keyframes gradientAnimation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+button, input, select, textarea {
+  border: transparent;
+  outline: none;
 }

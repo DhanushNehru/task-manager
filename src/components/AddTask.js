@@ -24,92 +24,31 @@ const AddTask = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        width: "100%",
-        maxWidth: "400px",
-        padding: "1.5rem",
-        backgroundColor: "#fff",
-        borderRadius: "12px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-        margin: "0 auto",
-      }}
-    >
+    <div className="add-task card">
       {/* Name */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-        <label htmlFor="name" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
+      <div className="field">
+        <label htmlFor="name" className="label">
           Name
         </label>
-        <input
-          id="name"
-          type="text"
-          value={task.name}
-          onChange={(e) => setTask({ ...task, name: e.target.value })}
-          style={{
-            padding: "0.7rem",
-            borderRadius: "8px",
-            border: "1.5px solid #ccc",
-            fontSize: "1rem",
-          }}
-        />
+        <input id="name" type="text" value={task.name} onChange={(e) => setTask({ ...task, name: e.target.value })} className="input" />
       </div>
 
       {/* Description */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-        <label htmlFor="description" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
+      <div className="field">
+        <label htmlFor="description" className="label">
           Description
         </label>
-        <textarea
-          id="description"
-          value={task.description}
-          onChange={(e) => setTask({ ...task, description: e.target.value })}
-          style={{
-            padding: "0.7rem",
-            borderRadius: "8px",
-            border: "1.5px solid #ccc",
-            fontSize: "1rem",
-            minHeight: "80px",
-          }}
-        />
+        <textarea id="description" value={task.description} onChange={(e) => setTask({ ...task, description: e.target.value })} className="textarea" />
       </div>
 
       {/* Due Date */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-        <label htmlFor="dueDate" style={{ fontWeight: "600", fontSize: "0.95rem" }}>
+      <div className="field">
+        <label htmlFor="dueDate" className="label">
           Due Date
         </label>
-        <input
-          id="dueDate"
-          type="date"
-          value={task.dueDate}
-          onChange={(e) => setTask({ ...task, dueDate: e.target.value })}
-          style={{
-            padding: "0.7rem",
-            borderRadius: "8px",
-            border: "1.5px solid #ccc",
-            fontSize: "1rem",
-          }}
-        />
+        <input id="dueDate" type="date" value={task.dueDate} onChange={(e) => setTask({ ...task, dueDate: e.target.value })} className="input" />
       </div>
-
-      <button
-        style={{
-          padding: "0.8rem 1rem",
-          borderRadius: "8px",
-          border: "none",
-          background: "linear-gradient(135deg, #4caf50, #81c784)",
-          color: "#fff",
-          fontWeight: "600",
-          fontSize: "1rem",
-          cursor: "pointer",
-        }}
-        onClick={handleAddTask}
-      >
-        Add Task
-      </button>
+      <button className="btn-primary" onClick={handleAddTask}>Add Task</button>
     </div>
   );
 };

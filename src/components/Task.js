@@ -4,6 +4,8 @@ import { removeTask, toggleTask, editTask } from "../redux/actions";
 
 const Task = ({ task }) => {
   const dispatch = useDispatch();
+  console.log(task);
+  
 
   // Hooks at the top
   const [isEditing, setIsEditing] = useState(false);
@@ -50,147 +52,79 @@ const Task = ({ task }) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.5rem",
-        backgroundColor: "#fff",
-        borderRadius: "10px",
-        padding: "1rem",
-        marginBottom: "1rem",
-        boxShadow: "0 3px 10px rgba(0,0,0,0.1)",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-        {/* Completed Checkbox */}
-        <input
-          type="checkbox"
-          checked={task.completed}
-          onChange={() => dispatch(toggleTask(task.id))}
-        />
+    <div className="task-card task-item">
+  <div className="title-row">
 
-        {/* Task Name */}
-        {isEditing ? (
-          <input
-            value={editedTask.name}
-            onChange={(e) =>
-              setEditedTask({ ...editedTask, name: e.target.value })
-            }
-            style={{
-              flex: 1,
-              padding: "0.4rem",
-              borderRadius: "6px",
-              border: "1px solid #ccc",
-            }}
-          />
-        ) : (
-          <h3
-            style={{
-              flex: 1,
-              textDecoration: task.completed ? "line-through" : "none",
-              margin: 0,
-            }}
-          >
-            {task.name}
-          </h3>
-        )}
+    {/* Completed Checkbox */}
+<div className="title-container">
+      <input
+      type="checkbox"
+      checked={task.completed}
+      onChange={() => dispatch(toggleTask(task.id))}
+      className="checkbox"
+    />
 
-        {/* Reminder Bell */}
-        <button
-          onClick={handleReminder}
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "1.2rem",
-          }}
-        >
-          🔔
-        </button>
+    {/* Task Name */}
+    {isEditing ? (
+      <input
+        value={editedTask.name}
+        onChange={(e) => setEditedTask({ ...editedTask, name: e.target.value })}
+        className="input editable-title"
+      />
+    ) : (
+      <h3 className={`title ${task.completed ? 'completed' : ''}`}>{task.name}</h3>
+    )}
+</div>
 
-        {/* Edit / Save */}
-        {isEditing ? (
-          <button
-            onClick={handleSave}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "1.2rem",
-              color: "green",
-            }}
-          >
-            ✅
-          </button>
-        ) : (
-          <button
-            onClick={() => setIsEditing(true)}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "1.2rem",
-            }}
-          >
-            ✏️
-          </button>
-        )}
+    <div className="task-actions">
+          {/* Reminder Bell */}
+    <button className="notif-bell hover-scale" onClick={handleReminder}>🔔</button>
 
-        {/* Delete */}
-        <button
-          onClick={() => dispatch(removeTask(task.id))}
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "1.2rem",
-            color: "red",
-          }}
-        >
-          ❌
-        </button>
-      </div>
+    {/* Edit / Save Buttons */}
+    {isEditing ? (
+      <button className="btn-icon save hover-scale" onClick={handleSave}>✅</button>
+    ) : (
+      <button className="btn-icon edit hover-scale" onClick={() => setIsEditing(true)}>✏️</button>
+    )}
 
-      {/* Description */}
-      {isEditing ? (
-        <textarea
-          value={editedTask.description}
-          onChange={(e) =>
-            setEditedTask({ ...editedTask, description: e.target.value })
-          }
-          style={{
-            padding: "0.5rem",
-            borderRadius: "6px",
-            border: "1px solid #ccc",
-          }}
-        />
-      ) : (
-        <p style={{ margin: 0, color: "#555" }}>{task.description}</p>
-      )}
-
-      {/* Due Date */}
-      {isEditing ? (
-        <input
-          type="date"
-          value={editedTask.dueDate}
-          onChange={(e) =>
-            setEditedTask({ ...editedTask, dueDate: e.target.value })
-          }
-          style={{
-            padding: "0.4rem",
-            borderRadius: "6px",
-            border: "1px solid #ccc",
-          }}
-        />
-      ) : (
-        task.dueDate && (
-          <p style={{ margin: 0, color: "#999", fontSize: "0.9rem" }}>
-            Due: {task.dueDate}
-          </p>
-        )
-      )}
+    {/* Delete Button */}
+    <button className="delete hover-rotate" onClick={() => dispatch(removeTask(task.id))}>❌</button>
     </div>
+      
+  </div>
+
+  <div className="content">
+    {isEditing ? (
+      <textarea
+        value={editedTask.description}
+        onChange={(e) => setEditedTask({ ...editedTask, description: e.target.value })}
+        className="textarea editable-text"
+      />
+    ) : (
+      <p className="muted description-text">{task.description}</p>
+    )}
+
+<div className="task-details">
+      {isEditing ? (
+      <input
+        type="date"
+        value={editedTask.dueDate}
+        onChange={(e) => setEditedTask({ ...editedTask, dueDate: e.target.value })}
+        className="input date-input"
+      />
+    ) : (
+      task.dueDate && <p className="due muted">Due: {task.dueDate}</p>
+    )}
+
+    {/* Task Status Indicator */}
+    <div className="status-indicator">
+      <span className={`status-dot ${task.completed ? 'completed' : task.isOverdue ? 'overdue' : 'active'}`}></span>
+      <span>{task.completed ? 'Completed' : task.isOverdue ? 'Overdue' : 'Active'}</span>
+    </div>
+</div>
+  </div>
+</div>
+
   );
 };
 
