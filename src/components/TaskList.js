@@ -44,22 +44,13 @@ const TaskList = () => {
   });
 
   return (
-    <div
-      style={{
-        marginTop: "2rem",
-        width: "100%",
-        maxWidth: "600px",
-        marginLeft: "auto",
-        marginRight: "auto",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {/* Filter Buttons */}
-      <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginBottom: "1rem" }}>
-        <button onClick={() => setFilter("all")}>All</button>
-        <button onClick={() => setFilter("active")}>Active</button>
-        <button onClick={() => setFilter("completed")}>Completed</button>
+    <div className="task-list container">
+      <div className="task-controls center">
+        <div className="filters">
+          <button onClick={() => setFilter("all")} className={filter === 'all' ? 'active' : ''}>All</button>
+          <button onClick={() => setFilter("active")} className={filter === 'active' ? 'active' : ''}>Active</button>
+          <button onClick={() => setFilter("completed")} className={filter === 'completed' ? 'active' : ''}>Completed</button>
+        </div>
       </div>
 
       {sortedTasks.map((task) => (
