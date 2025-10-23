@@ -189,33 +189,6 @@ h1 {
 }
 
 /* Status Indicators */
-.status-indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  text-transform: capitalize;
-  font-size: 0.9rem;
-}
-
-.status-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.status-dot.active {
-  background: var(--active);
-}
-
-.status-dot.completed {
-  background: var(--success);
-}
-
-.status-dot.overdue {
-  background: var(--overdue);
-}
-
 /* Modal Styling */
 .modal {
   position: fixed;
