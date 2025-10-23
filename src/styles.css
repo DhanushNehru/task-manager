@@ -233,19 +233,6 @@ h1 {
 }
 
 /* Delete Button */
-.delete {
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-size: 1.3rem;
-  color: #9ca3af;
-  transition: all var(--transition);
-}
-
-.delete:hover {
-  color: var(--overdue);
-  transform: rotate(10deg) scale(1.2);
-}
 
 /* Responsive Layouts */
 @media (max-width: 1024px) {
