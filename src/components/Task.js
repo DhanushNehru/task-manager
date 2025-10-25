@@ -4,7 +4,6 @@ import { removeTask, toggleTask, editTask } from "../redux/actions";
 
 const Task = ({ task }) => {
   const dispatch = useDispatch();
-  console.log(task);
   
 
   // Hooks at the top
