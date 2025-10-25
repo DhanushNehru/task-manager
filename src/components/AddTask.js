@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTask } from "../redux/actions";
 
-const initTask = { name: "", description: "", dueDate: "" };
+const initTask = { name: "", description: "", dueDate: "", priority: "Medium" };
 
 const AddTask = () => {
   const [task, setTask] = useState(initTask);
@@ -16,6 +16,7 @@ const AddTask = () => {
           name: task.name,
           description: task.description,
           dueDate: task.dueDate || null,
+          priority: task.priority || 'Medium',
           completed: false,
         })
       );
@@ -47,6 +48,16 @@ const AddTask = () => {
           Due Date
         </label>
         <input id="dueDate" type="date" value={task.dueDate} onChange={(e) => setTask({ ...task, dueDate: e.target.value })} className="input" />
+      </div>
+
+      {/* Priority */}
+      <div className="field">
+        <label htmlFor="priority" className="label">Priority</label>
+        <select id="priority" value={task.priority} onChange={(e) => setTask({ ...task, priority: e.target.value })} className="input">
+          <option>High</option>
+          <option>Medium</option>
+          <option>Low</option>
+        </select>
       </div>
       <button className="btn-primary" onClick={handleAddTask}>Add Task</button>
     </div>
