@@ -23,7 +23,7 @@ export default function TaskItem({ task, onToggle, onDelete }) {
       <div className="content">
         <div className="title-row">
           <span className={`title ${task.completed ? "completed" : ""}`}>{task.title}</span>
-          <span className={`priority ${task.priority.toLowerCase()}`}>{task.priority}</span>
+          <span className={`priority ${(task.priority || 'Medium').toLowerCase()}`}>{task.priority || 'Medium'}</span>
         </div>
         <div className="meta">
           {task.dueDate ? (

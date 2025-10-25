@@ -5,6 +5,7 @@ import Task from "./Task";
 const TaskList = () => {
   const tasks = useSelector((state) => state.tasks);
   const [filter, setFilter] = useState("all");
+  const [priorityFilter, setPriorityFilter] = useState("all");
 
   // Save to localStorage whenever tasks change
   useEffect(() => {
@@ -32,8 +33,12 @@ const TaskList = () => {
   }, [tasks]);
 
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "active") return !task.completed;
-    if (filter === "completed") return task.completed;
+    if (filter === "active") if (task.completed) return false;
+    if (filter === "completed") if (!task.completed) return false;
+    if (priorityFilter !== "all") {
+      if (!task.priority) return false;
+      if (task.priority.toLowerCase() !== priorityFilter) return false;
+    }
     return true;
   });
 
@@ -50,6 +55,15 @@ const TaskList = () => {
           <button onClick={() => setFilter("all")} className={filter === 'all' ? 'active' : ''}>All</button>
           <button onClick={() => setFilter("active")} className={filter === 'active' ? 'active' : ''}>Active</button>
           <button onClick={() => setFilter("completed")} className={filter === 'completed' ? 'active' : ''}>Completed</button>
+        </div>
+        <div style={{display: 'flex', gap: '0.6rem', alignItems: 'center'}}>
+          <label style={{fontSize: '0.9rem', color: '#6b7280'}}>Priority</label>
+          <select value={priorityFilter} onChange={(e) => setPriorityFilter(e.target.value)} className="search">
+            <option value="all">All</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
         </div>
       </div>
 

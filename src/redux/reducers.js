@@ -15,7 +15,9 @@ const initialState = {
 export const taskReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_TASKS:
-      return { ...state, tasks: action.payload };
+      // Ensure older tasks without priority get a default
+      const normalized = (action.payload || []).map((t) => ({ priority: 'Medium', ...t }));
+      return { ...state, tasks: normalized };
 
     case ADD_TASK:
       const updatedTasks = [...state.tasks, action.payload];

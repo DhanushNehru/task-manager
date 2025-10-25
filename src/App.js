@@ -10,7 +10,8 @@ const NOTIFY_WINDOW_HOURS = 1; // notify when task due within 1 hour (configurab
 function loadTasks() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    return parsed.map((t) => ({ priority: 'Medium', ...t }));
   } catch {
     return [];
   }
