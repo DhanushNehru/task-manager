@@ -33,8 +33,8 @@ const TaskList = () => {
   }, [tasks]);
 
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "active") if (task.completed) return false;
-    if (filter === "completed") if (!task.completed) return false;
+    if (filter === "active") return !task.completed;
+    if (filter === "completed") return task.completed;
     if (priorityFilter !== "all") {
       if (!task.priority) return false;
       if (task.priority.toLowerCase() !== priorityFilter) return false;
