@@ -12,6 +12,7 @@ const Task = ({ task }) => {
     name: task?.name || "",
     description: task?.description || "",
     dueDate: task?.dueDate || "",
+    priority: task?.priority || 'Medium',
   });
 
   // Save edits
@@ -55,7 +56,7 @@ const Task = ({ task }) => {
   <div className="title-row">
 
     {/* Completed Checkbox */}
-<div className="title-container">
+    <div className="title-container">
       <input
       type="checkbox"
       checked={task.completed}
@@ -71,7 +72,10 @@ const Task = ({ task }) => {
         className="input editable-title"
       />
     ) : (
-      <h3 className={`title ${task.completed ? 'completed' : ''}`}>{task.name}</h3>
+      <div style={{display: 'flex', alignItems: 'center', gap: '0.6rem'}}>
+        <h3 className={`title ${task.completed ? 'completed' : ''}`}>{task.name}</h3>
+        <span className={`priority ${task.priority ? task.priority.toLowerCase() : 'medium'}`}>{task.priority || 'Medium'}</span>
+      </div>
     )}
 </div>
 
@@ -113,6 +117,15 @@ const Task = ({ task }) => {
       />
     ) : (
       task.dueDate && <p className="due muted">Due: {task.dueDate}</p>
+    )}
+
+    {/* Priority selector when editing, static label otherwise is above */}
+    {isEditing && (
+      <select value={editedTask.priority} onChange={(e) => setEditedTask({ ...editedTask, priority: e.target.value })} className="input">
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
     )}
 
     {/* Task Status Indicator */}
