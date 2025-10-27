@@ -122,9 +122,9 @@ const Task = ({ task }) => {
     {/* Priority selector when editing, static label otherwise is above */}
     {isEditing && (
       <select value={editedTask.priority} onChange={(e) => setEditedTask({ ...editedTask, priority: e.target.value })} className="input">
-        <option>High</option>
-        <option>Medium</option>
-        <option>Low</option>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
       </select>
     )}
 
