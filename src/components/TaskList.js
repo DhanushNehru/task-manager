@@ -60,6 +60,7 @@ const TaskList = () => {
               className="clear-search"
               onClick={() => setSearchQuery("")}
               title="Clear search"
+              aria-label="Clear search"
             >
               ✕
             </button>
