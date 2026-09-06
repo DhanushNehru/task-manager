@@ -1,14 +1,9 @@
 /* reset css */
-*{
-  margin: 0;
-  padding: 0;
+* {
   box-sizing: border-box;
 }
-button, input, select, textarea {
-  border: transparent;
-}
 
-button:focus, input:focus, select:focus, textarea:focus {
-  outline: 2px solid #1976d2; /* visible blue outline for accessibility */
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--accent-primary, #3b82f6);
   outline-offset: 2px;
-}
+}

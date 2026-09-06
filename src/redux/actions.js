@@ -30,8 +30,16 @@ export const toggleTask = (taskId) => ({
   payload: taskId,
 });
 
+export const STORAGE_KEY = "task_manager_tasks_v1";
+
 export const loadTasks = () => {
-  const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  let savedTasks = [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem("tasks");
+    savedTasks = raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    console.error("Failed to load tasks", e);
+  }
   return {
     type: LOAD_TASKS,
     payload: savedTasks,
@@ -42,3 +50,4 @@ export const filterTasks = (filter) => ({
   type: FILTER_TASKS,
   payload: filter, // "all" | "active" | "completed"
 });
+
