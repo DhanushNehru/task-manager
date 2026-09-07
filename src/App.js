@@ -1,133 +1,145 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import AddTask from "./components/AddTask";
 import TaskList from "./components/TaskList";
 import NotificationBell from "./components/NotificationBell";
+import ThemeToggle from "./components/ThemeToggle";
+import { editTask } from "./redux/actions";
 import "./styles.css";
 
-const STORAGE_KEY = "task_manager_tasks_v1";
-const NOTIFY_WINDOW_HOURS = 1; // notify when task due within 1 hour (configurable)
+const THEME_STORAGE_KEY = "task_manager_theme_v1";
 
-function loadTasks() {
+function loadTheme() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    const parsed = raw ? JSON.parse(raw) : [];
-    return parsed.map((t) => ({ priority: 'Medium', ...t }));
+    return localStorage.getItem(THEME_STORAGE_KEY) === "dark"
+      ? "dark"
+      : "light";
   } catch {
-    return [];
+    return "light";
   }
 }
 
-function saveTasks(tasks) {
+function saveTheme(theme) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch (e) {
-    console.error("Failed to save tasks", e);
+    console.error("Failed to save theme", e);
   }
 }
+
+const NOTIFY_WINDOW_HOURS = 1;
 
 export default function App() {
-  const [tasks, setTasks] = useState(() => loadTasks());
+  const tasks = useSelector((state) => state.tasks || []);
+  const dispatch = useDispatch();
   const [notifCount, setNotifCount] = useState(0);
+  const [theme, setTheme] = useState(() => loadTheme());
 
-  // persist tasks
+  // Apply theme to document root
   useEffect(() => {
-    saveTasks(tasks);
-  }, [tasks]);
+    document.documentElement.setAttribute("data-theme", theme);
+    saveTheme(theme);
+  }, [theme]);
 
-  // update notification count (unread alerts)
-  useEffect(() => {
-    const count = tasks.filter((t) => t.notified === true && !t.read).length;
-    setNotifCount(count);
-  }, [tasks]);
-
-  // request notification permission once
+  // Request browser notification permission once
   useEffect(() => {
     if ("Notification" in window && Notification.permission !== "granted") {
       Notification.requestPermission().catch(() => {});
     }
   }, []);
 
-  // periodic check for due tasks (every minute)
+  // Update notification count
+  useEffect(() => {
+    const count = tasks.filter((t) => t.notified === true && !t.read).length;
+    setNotifCount(count);
+  }, [tasks]);
+
+  // Periodic check for due tasks
   useEffect(() => {
     const checkOnce = () => {
       const now = new Date();
-      let changed = false;
-      const updated = tasks.map((t) => {
-        if (!t.dueDate || t.completed) return t;
-        // treat dueDate as day: set time to end of day for due date comparison
+      tasks.forEach((t) => {
+        if (!t.dueDate || t.completed) return;
         const due = new Date(t.dueDate + "T23:59:59");
         const diffHours = (due - now) / (1000 * 60 * 60);
 
-        // if within window and not yet notified -> notify
         if (diffHours <= NOTIFY_WINDOW_HOURS && diffHours > -24 && !t.notified) {
-          // in-app (UI) notified flag and browser notification
           if ("Notification" in window && Notification.permission === "granted") {
             try {
               new Notification("Task due soon", {
-                body: `${t.title} is due ${t.dueDate}`,
+                body: `${t.name || t.title} is due ${t.dueDate}`,
               });
-            } catch (e) {
-              // ignore
-            }
-          } else {
-            // fallback: simple alert (only once)
-            // eslint-disable-next-line no-alert
-            // alert(`Task due soon: ${t.title} (Due: ${t.dueDate})`);
+            } catch (e) {}
           }
-          changed = true;
-          return { ...t, notified: true, read: false }; // read=false => unread notification
-        }
-
-        // if overdue and not notified (catch overdue edge)
-        if (diffHours < 0 && !t.notified) {
+          dispatch(editTask(t.id, { notified: true, read: false }));
+        } else if (diffHours < 0 && !t.notified) {
           if ("Notification" in window && Notification.permission === "granted") {
             try {
               new Notification("Task is overdue", {
-                body: `${t.title} was due ${t.dueDate}`,
+                body: `${t.name || t.title} was due ${t.dueDate}`,
               });
-            } catch {}
+            } catch (e) {}
           }
-          changed = true;
-          return { ...t, notified: true, read: false };
+          dispatch(editTask(t.id, { notified: true, read: false }));
         }
-        return t;
       });
-
-      if (changed) setTasks(updated);
     };
 
-    // check immediately and then every minute
     checkOnce();
     const id = setInterval(checkOnce, 60 * 1000);
     return () => clearInterval(id);
-  }, [tasks]);
-
-  // handlers
-  const addTask = (task) => setTasks((prev) => [task, ...prev]);
-  const toggleTask = (id) =>
-    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)));
-  const deleteTask = (id) => setTasks((prev) => prev.filter((t) => t.id !== id));
+  }, [tasks, dispatch]);
 
   const clearNotifications = useCallback(() => {
-    setTasks((prev) => prev.map((t) => (t.notified ? { ...t, read: true } : t)));
-  }, []);
+    tasks.forEach((t) => {
+      if (t.notified && !t.read) {
+        dispatch(editTask(t.id, { read: true }));
+      }
+    });
+  }, [tasks, dispatch]);
+
+  const toggleTheme = () => {
+    setTheme((current) => (current === "light" ? "dark" : "light"));
+  };
+
+  const totalTasks = tasks.length;
+  const completedCount = tasks.filter((t) => t.completed).length;
+  const activeCount = totalTasks - completedCount;
 
   return (
     <div className="app">
-      <header>
-        <h1>Task Manager</h1>
+      <header className="app-header">
+        <div className="header-brand">
+          <div className="logo-icon">✨</div>
+          <div>
+            <h1>Task Manager</h1>
+            <span className="subtitle">Organize your workflow effortlessly</span>
+          </div>
+        </div>
+
         <div className="header-right">
+          <div className="stats-pill" title="Task Summary">
+            <span className="stat-item">
+              <strong>{activeCount}</strong> Pending
+            </span>
+            <span className="stat-divider">•</span>
+            <span className="stat-item">
+              <strong>{completedCount}</strong> Done
+            </span>
+          </div>
+
+          <ThemeToggle theme={theme} onToggle={toggleTheme} />
           <NotificationBell count={notifCount} onClick={clearNotifications} />
         </div>
       </header>
 
-      <main>
-        <AddTask onAdd={addTask} />
-        <TaskList tasks={tasks} onToggle={toggleTask} onDelete={deleteTask} />
+      <main className="app-main">
+        <AddTask />
+        <TaskList />
       </main>
 
-      <footer>
-        <small>Tasks saved in browser localStorage.</small>
+      <footer className="app-footer">
+        <p>⚡ Tasks saved automatically in browser LocalStorage</p>
       </footer>
     </div>
   );
