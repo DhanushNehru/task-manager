@@ -15,8 +15,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
+      - run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
       - run: npm ci
       - run: CI=true npm test -- --watch=false --runInBand --passWithNoTests
       - run: CI=true npm run build
